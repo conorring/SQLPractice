@@ -1,0 +1,54 @@
+-- Conor's first script
+create table CUSTOMER(
+    Customer_ID number NOT NULL,
+    Customer_name varchar2(255),
+    primary key (Customer_ID)
+);
+create table PRODUCT(
+    Product_ID number NOT NULL,
+    Standard_Price number,
+    primary key (Product_ID)
+);
+create table Orders(
+    Order_ID number NOT NULL,
+    Customer_ID number NOT NULL,
+    Order_Date DATE,
+    primary key (Order_ID),
+    foreign key (Customer_ID) REFERENCES CUSTOMER (Customer_ID)
+);
+create table Orderline(
+    Order_ID number NOT NULL,
+    Product_ID number NOT NULL,
+    Quantity number,
+    primary key (Order_ID, Product_ID),
+    foreign key (Order_ID) REFERENCES Orders (Order_ID),
+    foreign key (Product_ID) REFERENCES PRODUCT (Product_ID)
+);
+insert into CUSTOMER values(1, 'John');
+insert into CUSTOMER values(2, 'Joe');
+insert into CUSTOMER values(3, 'Jacob');
+insert into CUSTOMER values(4, 'Josh');
+
+insert into PRODUCT values(1,100);
+insert into PRODUCT values(2,300);
+insert into PRODUCT values(3,10);
+insert into PRODUCT values(4, 1.5);
+
+insert into Orders values(1,3,'20-Sep-2020');
+insert into Orders values(2,3,'20-Sep-2020');
+insert into Orders values(3,3,'20-Sep-2020');
+insert into Orders values(4,3,'20-Sep-2020');
+
+insert into Orderline values(1, 4, 6);
+insert into Orderline values(2, 4, 6);
+insert into Orderline values(3, 4, 6);
+insert into Orderline values(4, 4, 6);
+
+SELECT * FROM CUSTOMER;
+SELECT customer_name FROM CUSTOMER;
+SELECT customer_id FROM CUSTOMER;
+
+SELECT * FROM CUSTOMER WHERE customer_id = 4;
+Select customer_name from CUSTOMER where customer_id = 1;
+
+SELECT SUM(Standard_Price) FROM PRODUCT;
